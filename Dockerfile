@@ -1,8 +1,9 @@
 # ==========================================
 # STAGE 1: Builder
-# (Used only to clone and zip the agent)
 # ==========================================
-FROM ubuntu:20.04 AS builder
+FROM ubuntu:22.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -16,11 +17,11 @@ RUN git clone https://github.com/hashtopolis/agent-python.git /build && \
 
 # ==========================================
 # STAGE 2: Runtime
-# (The actual image deployed to Vast.ai)
 # ==========================================
-FROM nvidia/cuda:12.9.1-runtime-ubuntu20.04
+FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04
 
-# Install ONLY runtime dependencies (and p7zip-full to prevent our previous crash!)
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-psutil \

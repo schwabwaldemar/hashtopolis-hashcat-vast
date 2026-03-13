@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pciutils \
     curl \
     p7zip-full \
+    ocl-icd-libopencl1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/htpclient
